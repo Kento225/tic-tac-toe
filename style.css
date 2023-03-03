@@ -1,0 +1,26 @@
+body{
+    margin: 0px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    width: 30rem;
+    height: 30rem;
+    border-radius: 15px;
+    gap:2px;
+    place-self: center;
+    margin-top: 5%;
+}
+.square{
+    border: solid 2px black;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5rem;
+    border-radius: 15px;
+}
+.container{
+    display: grid;
+}
