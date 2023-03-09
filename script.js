@@ -11,6 +11,7 @@ const gameBoard = (() => {
       event.target.textContent = marker;
     }
     board[index] = marker;
+    console.log(board);
   };
   const markerMode = () => {
     if (marker === "X") {
@@ -30,24 +31,49 @@ const gameBoard = (() => {
     [2, 5, 8],
   ];
 
-  const checkWin = () => {
-    for (let i = 0; i < 9; i++) {
+  const checkWinO = () => {
+    for (let i = 0; i < 6; i++) {
       if (
-        winConditions[i][0] === board[0] &&
-        winConditions[i][1] === board[1] &&
-        winConditions[i][2] === board[2]
+        board[winConditions[i][0]] === "O" &&
+        board[winConditions[i][1]] === "O" &&
+        board[winConditions[i][2]] === "O"
       ) {
-        alert("Game Over");
-        return;
+        setTimeout(() => {
+          alert("Player O Wins!");
+          boardReset();
+          return;
+        }, 1);
+      }
+    }
+  };
+  const checkWinX = () => {
+    for (let i = 0; i < 6; i++) {
+      if (
+        board[winConditions[i][0]] === "X" &&
+        board[winConditions[i][1]] === "X" &&
+        board[winConditions[i][2]] === "X"
+      ) {
+        setTimeout(() => {
+          alert("Player X Wins!");
+          boardReset();
+          return;
+        }, 1);
       }
     }
   };
 
+  const boardReset = () => {
+    for (let i = 0; i < board.length; i++) {
+      board[i] = "";
+    }
+    displayBoard.forEach((square) => (square.textContent = ""));
+  };
   return {
     displayBoard,
     addMarker,
     markerMode,
-    checkWin,
+    checkWinO,
+    checkWinX,
   };
 })();
 
@@ -56,6 +82,8 @@ squares.forEach((square) =>
   square.addEventListener("click", (e) => {
     gameBoard.markerMode();
     gameBoard.addMarker(e);
-    gameBoard.checkWin();
+    gameBoard.checkWinO();
+    gameBoard.checkWinX();
+    console.log();
   })
 );
