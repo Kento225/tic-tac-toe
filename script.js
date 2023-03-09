@@ -112,13 +112,9 @@ const gameBoard = (() => {
         board[winConditions[i][1]] === "O" &&
         board[winConditions[i][2]] === "O"
       ) {
-        setTimeout(() => {
-          alert(`${playerNames.playerO} Wins!`);
-          boardReset();
-          return;
-        }, 2);
-      } else {
-        return false;
+        alert(`${playerNames.playerO} Wins!`);
+        boardReset();
+        return true;
       }
     }
   };
@@ -129,28 +125,24 @@ const gameBoard = (() => {
         board[winConditions[i][1]] === "X" &&
         board[winConditions[i][2]] === "X"
       ) {
-        setTimeout(() => {
-          switch (gameBoard.mode) {
-            case "p":
-              alert(`${playerNames.playerX} Wins!`);
-              boardReset();
-              return;
-            case "a":
-              alert("You Win!");
-              boardReset();
-              return;
-          }
-        }, 2);
-      } else {
-        return false;
+        switch (gameBoard.mode) {
+          case "p":
+            alert(`${playerNames.playerX} Wins!`);
+            boardReset();
+            return true;
+          case "a":
+            alert("You Win!");
+            boardReset();
+            return true;
+        }
       }
     }
   };
   const checkTie = () => {
     if (
       board.includes("") === false &&
-      checkWinO() === false &&
-      checkWinX() === false
+      checkWinO() !== true &&
+      checkWinX() !== true
     ) {
       alert("It's a tie!");
       boardReset();
