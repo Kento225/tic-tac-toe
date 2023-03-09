@@ -9,6 +9,20 @@
     <title>Tic Tac Toe</title>
   </head>
   <body>
+    <div class="gamemode-pop-up">
+      <button class="ai">AI</button>
+      <button class="unbeatable">Unbeatable AI</button>
+      <button class="player">Player v Player</button>
+    </div>
+    <div class="player-pop-up">
+      <form action="POST" id="pselect">
+        <label for="px">Player X Name</label>
+        <input type="text" id="px" name="px" />
+        <label for="po">Player O Name</label>
+        <input type="text" id="po" name="po" />
+      </form>
+      <button class="pmodal-submit">Submit</button>
+    </div>
     <div class="container">
       <div class="grid">
         <div class="square" data-x="0" data-y="2"></div>
