@@ -60,7 +60,7 @@ const gameBoard = (() => {
   const displayBoard = document.querySelectorAll(".square");
   const displayArr = Array.from(displayBoard);
   let marker = "X";
-  const mode = "p";
+  const mode = "";
 
   const aiTurn = () => {
     for (let i = 0; i < 9; i++) {
@@ -102,10 +102,11 @@ const gameBoard = (() => {
     [1, 4, 7],
     [2, 5, 8],
     [0, 4, 8],
+    [2, 4, 6],
   ];
 
   const checkWinO = () => {
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 8; i++) {
       if (
         board[winConditions[i][0]] === "O" &&
         board[winConditions[i][1]] === "O" &&
@@ -115,12 +116,14 @@ const gameBoard = (() => {
           alert(`${playerNames.playerO} Wins!`);
           boardReset();
           return;
-        }, 1);
+        }, 2);
+      } else {
+        return false;
       }
     }
   };
   const checkWinX = () => {
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 8; i++) {
       if (
         board[winConditions[i][0]] === "X" &&
         board[winConditions[i][1]] === "X" &&
@@ -137,13 +140,20 @@ const gameBoard = (() => {
               boardReset();
               return;
           }
-        }, 1);
+        }, 2);
+      } else {
+        return false;
       }
     }
   };
   const checkTie = () => {
-    if (board.includes("") === false) {
+    if (
+      board.includes("") === false &&
+      checkWinO() === false &&
+      checkWinX() === false
+    ) {
       alert("It's a tie!");
+      boardReset();
     }
   };
 
@@ -167,10 +177,10 @@ const gameBoard = (() => {
 const squares = document.querySelectorAll(".square");
 squares.forEach((square) =>
   square.addEventListener("click", (e) => {
+    if (e.target.textContent !== "") {
+      return;
+    }
     gameBoard.addMarker(e);
-    gameBoard.checkWinO();
-    gameBoard.checkWinX();
-    gameBoard.checkTie();
     switch (gameBoard.mode) {
       case "p":
         gameBoard.markerMode();
@@ -178,6 +188,9 @@ squares.forEach((square) =>
       case "a":
         gameBoard.aiTurn();
     }
+    gameBoard.checkWinO();
+    gameBoard.checkWinX();
+    gameBoard.checkTie();
   })
 );
 
