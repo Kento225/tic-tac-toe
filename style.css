@@ -70,12 +70,12 @@ body {
     top: 15rem;
     border-radius: 15px;
     padding: 15px;
-    gap: 15px;
+    gap: 15%;
     display:flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 .gamemode-pop-up button{
-    width: 100px;
+    width: 200px;
     height: 50px;
 }

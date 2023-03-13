@@ -1,5 +1,5 @@
 const gamemodes = (() => {
-  const unbeatableMode = document.querySelector(".unbeatable");
+  //const unbeatableMode = document.querySelector(".unbeatable");
   const gamemodePopUp = document.querySelector(".gamemode-pop-up");
   const body = document.querySelector("body");
   closeGamemodePopUp = () => {
@@ -61,11 +61,12 @@ const gameBoard = (() => {
   const displayArr = Array.from(displayBoard);
   let marker = "X";
   const mode = "";
+  let index = "";
 
-  const aiTurn = () => {
+  const aiTurn = (event) => {
     for (let i = 0; i < 9; i++) {
       let ranSquare = Math.floor(Math.random() * 9);
-      if (board[ranSquare] === "") {
+      if (board[ranSquare] === "" && ranSquare !== index) {
         console.log(ranSquare);
         board[ranSquare] = "O";
         displayBoard[ranSquare].textContent = "O";
@@ -75,7 +76,7 @@ const gameBoard = (() => {
   };
 
   const addMarker = (event) => {
-    const index = displayArr.indexOf(event.target);
+    index = displayArr.indexOf(event.target);
     console.log(index);
     if (event.target.textContent === "") {
       event.target.textContent = marker;
@@ -84,6 +85,7 @@ const gameBoard = (() => {
     }
     board[index] = marker;
     console.log(board);
+    return index;
   };
   const markerMode = () => {
     if (marker === "X") {
@@ -169,7 +171,15 @@ const gameBoard = (() => {
 const squares = document.querySelectorAll(".square");
 squares.forEach((square) =>
   square.addEventListener("click", (e) => {
+    console.log(gameBoard.mode);
+
     if (e.target.textContent !== "") {
+      return;
+    } else if (
+      gameBoard.mode !== "a" &&
+      gameBoard.mode !== "u" &&
+      gameBoard.mode !== "p"
+    ) {
       return;
     }
     gameBoard.addMarker(e);
@@ -178,11 +188,13 @@ squares.forEach((square) =>
         gameBoard.markerMode();
         break;
       case "a":
-        gameBoard.aiTurn();
+        gameBoard.aiTurn(e);
     }
-    gameBoard.checkWinO();
-    gameBoard.checkWinX();
-    gameBoard.checkTie();
+    setTimeout(() => {
+      gameBoard.checkWinO();
+      gameBoard.checkWinX();
+      gameBoard.checkTie();
+    }, 1);
   })
 );
 
@@ -202,3 +214,4 @@ const aiModeBtn = document.querySelector(".ai");
 aiModeBtn.addEventListener("click", () => {
   gamemodes.setAiMode();
 });
+console.log(gameBoard.mode);
