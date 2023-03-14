@@ -64,9 +64,12 @@ const gameBoard = (() => {
   let index = "";
 
   const aiTurn = (event) => {
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < 10; i++) {
       let ranSquare = Math.floor(Math.random() * 9);
-      if (board[ranSquare] === "" && ranSquare !== index) {
+      if (ranSquare === index) {
+        continue;
+      }
+      if (board[ranSquare] === "") {
         console.log(ranSquare);
         board[ranSquare] = "O";
         displayBoard[ranSquare].textContent = "O";
@@ -215,3 +218,32 @@ aiModeBtn.addEventListener("click", () => {
   gamemodes.setAiMode();
 });
 console.log(gameBoard.mode);
+
+gameBoard.displayBoard.forEach((square) => {
+  square.addEventListener("mouseenter", (e) => {
+    if (
+      gameBoard.mode !== "a" &&
+      gameBoard.mode !== "u" &&
+      gameBoard.mode !== "p"
+    ) {
+      return;
+    }
+    e.target.style.backgroundColor = "rgba(0,0,0,0.3)";
+    if (e.target.textContent !== "") {
+      e.target.style.backgroundColor = "red";
+    }
+  });
+});
+gameBoard.displayBoard.forEach((square) => {
+  square.addEventListener("mouseleave", (e) => {
+    if (
+      gameBoard.mode !== "a" &&
+      gameBoard.mode !== "u" &&
+      gameBoard.mode !== "p"
+    ) {
+      return;
+    }
+
+    e.target.style.backgroundColor = "white";
+  });
+});
