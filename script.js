@@ -117,9 +117,11 @@ const gameBoard = (() => {
         board[winConditions[i][1]] === "O" &&
         board[winConditions[i][2]] === "O"
       ) {
-        alert(`${playerNames.playerO} Wins!`);
-        boardReset();
-        return true;
+        if (checkWinX() !== true) {
+          alert(`${playerNames.playerO} Wins!`);
+          boardReset();
+          return true;
+        }
       }
     }
   };
@@ -180,7 +182,7 @@ squares.forEach((square) =>
       return;
     } else if (
       gameBoard.mode !== "a" &&
-      gameBoard.mode !== "u" &&
+      // gameBoard.mode !== "u" &&
       gameBoard.mode !== "p"
     ) {
       return;
@@ -223,7 +225,7 @@ gameBoard.displayBoard.forEach((square) => {
   square.addEventListener("mouseenter", (e) => {
     if (
       gameBoard.mode !== "a" &&
-      gameBoard.mode !== "u" &&
+      //gameBoard.mode !== "u" &&
       gameBoard.mode !== "p"
     ) {
       return;
@@ -238,7 +240,7 @@ gameBoard.displayBoard.forEach((square) => {
   square.addEventListener("mouseleave", (e) => {
     if (
       gameBoard.mode !== "a" &&
-      gameBoard.mode !== "u" &&
+      //gameBoard.mode !== "u" &&
       gameBoard.mode !== "p"
     ) {
       return;
